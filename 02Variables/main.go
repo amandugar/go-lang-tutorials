@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+const LoginToken string = "ghhghghhg" // Captial Indicates Public
+
 func main() {
 	var username string = "aman"
 	fmt.Println(username)
