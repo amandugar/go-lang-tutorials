@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
 func main() {
 	fmt.Println("Welcome tto WebReverbs")
-	// PerformGetRequest()
+	PerformGetRequest()
 	PerformPostJsonRequest()
+	PerformPostFormRequest()
 }
 
 func PerformGetRequest() {
@@ -57,5 +59,26 @@ func PerformPostJsonRequest() {
 	defer response.Body.Close()
 	content, _ := ioutil.ReadAll(response.Body)
 
+	fmt.Println(string(content))
+}
+
+func PerformPostFormRequest() {
+	const myurl = "http://localhost:8000/postform"
+
+	// formdata
+
+	data := url.Values{}
+	data.Add("firstname", "aman")
+	data.Add("lastname", "dugar")
+	data.Add("email", "aman@go.dev")
+
+	response, err := http.PostForm(myurl, data)
+	if err != nil {
+		panic(err)
+	}
+
+	defer response.Body.Close()
+
+	content, _ := ioutil.ReadAll(response.Body)
 	fmt.Println(string(content))
 }
